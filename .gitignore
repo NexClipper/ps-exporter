@@ -4,6 +4,7 @@
 *.dll
 *.so
 *.dylib
+ps-exporter
 
 # Test binary, build with `go test -c`
 *.test
