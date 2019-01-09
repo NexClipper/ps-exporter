@@ -1,7 +1,6 @@
 package exporter
 
 import (
-	"fmt"
 	"log"
 	"os/exec"
 	"strconv"
@@ -14,7 +13,7 @@ type dataPoint struct {
 	ppid    string
 	memP    float64
 	cpuP    float64
-	cpu     int
+	cpu     float64
 	command string
 	user    string
 	start   string
@@ -41,7 +40,7 @@ func parseDataPointFromRow(headerLength int, row string) *dataPoint {
 	timestamp, _ := time.Parse(time.ANSIC, timeString)
 	memP, _ := strconv.ParseFloat(fields[2], 64)
 	cpuP, _ := strconv.ParseFloat(fields[3], 64)
-	cpu, _ := strconv.Atoi(fields[4])
+	cpu, _ := strconv.ParseFloat(fields[4], 64)
 	return &dataPoint{
 		pid:     fields[0],
 		ppid:    fields[1],
@@ -57,8 +56,3 @@ func parseDataPointFromRow(headerLength int, row string) *dataPoint {
 func parseRow(row string) []string {
 	return strings.Fields(row)
 }
-
-//func main() {
-//dataPoints := GetProcessStats()
-//fmt.Printf("DataPoints: %s", len(dataPoints))
-//}
