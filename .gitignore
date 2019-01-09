@@ -6,6 +6,9 @@
 *.dylib
 ps-exporter
 
+# Dist
+dist
+
 # Test binary, build with `go test -c`
 *.test
 
