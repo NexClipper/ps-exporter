@@ -4,18 +4,6 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 )
 
-// ProcInfo contains information about a process
-type ProcInfo struct {
-	pid     string
-	ppid    string
-	memP    int
-	cpuP    int
-	cpu     int
-	command string
-	user    string
-	start   string
-}
-
 // ProcCollector collects process informtion
 type ProcCollector struct {
 	memPMetric *prometheus.Desc

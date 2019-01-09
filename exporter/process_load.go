@@ -8,7 +8,8 @@ import (
 	"time"
 )
 
-type dataPoint struct {
+// ProcInfo contains information about a process
+type ProcInfo struct {
 	pid     string
 	ppid    string
 	memP    float64
@@ -19,7 +20,8 @@ type dataPoint struct {
 	start   string
 }
 
-func GetProcessStats() []*dataPoint {
+// GetProcessStats returns current process information
+func GetProcessStats() []*ProcInfo {
 	out, err := exec.Command("sh", "-c", "ps -eo pid,ppid,%mem,%cpu,cpu,comm,user,lstart").CombinedOutput()
 	if err != nil {
 		log.Fatal("CMD Error: ", err)
@@ -27,21 +29,21 @@ func GetProcessStats() []*dataPoint {
 	trimmed := strings.Trim(string(out), "\n")
 	lines := strings.Split(string(trimmed), "\n")
 	header := parseRow(lines[0])
-	dataPoints := make([]*dataPoint, len(lines)-1, len(lines)-1)
+	procInfos := make([]*ProcInfo, len(lines)-1, len(lines)-1)
 	for i := 1; i < len(lines); i++ {
-		dataPoints[i-1] = parseDataPointFromRow(len(header), lines[i])
+		procInfos[i-1] = parseDataPointFromRow(len(header), lines[i])
 	}
-	return dataPoints
+	return procInfos
 }
 
-func parseDataPointFromRow(headerLength int, row string) *dataPoint {
+func parseDataPointFromRow(headerLength int, row string) *ProcInfo {
 	fields := parseRow(row)
 	timeString := strings.Join(fields[headerLength-1:], " ")
 	timestamp, _ := time.Parse(time.ANSIC, timeString)
 	memP, _ := strconv.ParseFloat(fields[2], 64)
 	cpuP, _ := strconv.ParseFloat(fields[3], 64)
 	cpu, _ := strconv.ParseFloat(fields[4], 64)
-	return &dataPoint{
+	return &ProcInfo{
 		pid:     fields[0],
 		ppid:    fields[1],
 		memP:    memP,
