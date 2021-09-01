@@ -5,7 +5,6 @@ import (
 	"os/exec"
 	"strconv"
 	"strings"
-	"time"
 )
 
 // ProcInfo contains information about a process
@@ -22,7 +21,8 @@ type ProcInfo struct {
 
 // GetProcessStats returns current process information
 func GetProcessStats() []*ProcInfo {
-	out, err := exec.Command("sh", "-c", "ps -eo pid,ppid,%mem,%cpu,cpu,comm,user,lstart").CombinedOutput()
+	// out, err := exec.Command("sh", "-c", "ps -eo pid,ppid,%mem,%cpu,cpu,comm,user,lstart").CombinedOutput()
+	out, err := exec.Command("sh", "-c", "ps -eo pid,ppid,%mem,%cpu,cpu,user,etime,comm").CombinedOutput()
 	if err != nil {
 		log.Fatal("CMD Error: ", err)
 	}
@@ -38,8 +38,6 @@ func GetProcessStats() []*ProcInfo {
 
 func parseDataPointFromRow(headerLength int, row string) *ProcInfo {
 	fields := parseRow(row)
-	timeString := strings.Join(fields[headerLength-1:], " ")
-	timestamp, _ := time.Parse(time.ANSIC, timeString)
 	memP, _ := strconv.ParseFloat(fields[2], 64)
 	cpuP, _ := strconv.ParseFloat(fields[3], 64)
 	cpu, _ := strconv.ParseFloat(fields[4], 64)
@@ -49,9 +47,9 @@ func parseDataPointFromRow(headerLength int, row string) *ProcInfo {
 		memP:    memP,
 		cpuP:    cpuP,
 		cpu:     cpu,
-		command: fields[5],
-		user:    fields[6],
-		start:   strconv.FormatInt(timestamp.Unix(), 10),
+		command: fields[7],
+		user:    fields[5],
+		start:   fields[6],
 	}
 }
 

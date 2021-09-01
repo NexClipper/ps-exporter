@@ -12,14 +12,14 @@ type ProcCollector struct {
 }
 
 var labels = []string{
-	"pid", "ppid", "command", "user", "start",
+	"pid", "ppid", "command", "user", "started",
 }
 
 func newProcCollector() *ProcCollector {
 	return &ProcCollector{
-		memPMetric: prometheus.NewDesc("memp", "Memory utilization percentage", labels, nil),
-		cpuPMetric: prometheus.NewDesc("cpup", "CPU utilization percentage", labels, nil),
-		cpuMetric:  prometheus.NewDesc("cpu", "CPU utilization", labels, nil),
+		memPMetric: prometheus.NewDesc("ps_mem_util_percent", "Memory utilization percentage", labels, nil),
+		cpuPMetric: prometheus.NewDesc("ps_cpu_util_percent", "CPU utilization percentage", labels, nil),
+		cpuMetric:  prometheus.NewDesc("ps_cpu_short_usage", "Short-term CPU usage for scheduling", labels, nil),
 	}
 }
 
