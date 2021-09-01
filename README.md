@@ -20,4 +20,4 @@ All metrics are annotated with the following labels:
 
 ## Usage
 
-Start the exporter using: `./ps-exporter --port 9090 --host localhost`
+Start the exporter using: `./ps-exporter --port 9095 --host localhost`
