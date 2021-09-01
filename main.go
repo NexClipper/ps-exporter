@@ -2,7 +2,8 @@ package main
 
 import (
 	"flag"
-	"github.com/hpi-power-rangers/ps-exporter/exporter"
+
+	"github.com/nexclipper/ps-exporter/exporter"
 )
 
 func main() {

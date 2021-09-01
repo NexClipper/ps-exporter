@@ -1,4 +1,4 @@
-module github.com/hpi-power-rangers/ps-exporter
+module github.com/nexclipper/ps-exporter
 
 go 1.16
 

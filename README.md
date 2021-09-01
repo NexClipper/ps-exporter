@@ -8,7 +8,7 @@ Exports the following metrics for all processes:
 
 * `memp`: Memory utilization percentage (`ps -eo %mem`)
 * `cpup`: CPU utilization percentage (`ps -eo %cpu`)
-* `cpu`: CPU utilization (`ps -eo cpu`)
+* `cpu`: Short-term CPU usage for scheduling (`ps -eo cpu`)
 
 All metrics are annotated with the following labels:
 
@@ -16,7 +16,7 @@ All metrics are annotated with the following labels:
 * `ppid`
 * `command`
 * `user`
-* `start`
+* `started`
 
 ## Usage
 
