@@ -15,5 +15,7 @@ func Run(host string, port int) {
 	prometheus.MustRegister(procCollector)
 	log.Printf("Exporter running on port %s:%d\n", host, port)
 	http.Handle("/metrics", promhttp.Handler())
-	http.ListenAndServe(host+":"+strconv.Itoa(port), nil)
+	if err := http.ListenAndServe("0.0.0.0:"+strconv.Itoa(port), nil); err != nil {
+		panic(err)
+	}
 }
