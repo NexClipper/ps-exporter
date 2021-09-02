@@ -22,7 +22,7 @@ type ProcInfo struct {
 // GetProcessStats returns current process information
 func GetProcessStats() []*ProcInfo {
 	// out, err := exec.Command("sh", "-c", "ps -eo pid,ppid,%mem,%cpu,cpu,comm,user,lstart").CombinedOutput()
-	out, err := exec.Command("sh", "-c", "ps -eo pid,ppid,%mem,%cpu,cpu,user,etime,comm").CombinedOutput()
+	out, err := exec.Command("sh", "-c", "ps -eo pid,ppid,pmem,pcpu,cpu,user,etime,command").CombinedOutput()
 	if err != nil {
 		log.Fatal("CMD Error: ", err)
 	}
