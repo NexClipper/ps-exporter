@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  ps-exporter:
+    privileged: true
+    image: nexclipper/ps-exporter:latest
+    container_name: ps-exporter
+    restart: unless-stopped
+    pid: host
+    volumes:
+      - type: bind
+        source: /proc
+        target: /host/proc
+        read_only: true
+          bind:
+            propagation: rslave
+    ports: 
+      - 9095:9095
+

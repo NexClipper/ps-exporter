@@ -12,7 +12,7 @@ type ProcCollector struct {
 }
 
 var labels = []string{
-	"pid", "ppid", "command", "user", "started",
+	"pid", "ppid", "command", "user",
 }
 
 func newProcCollector() *ProcCollector {
@@ -42,7 +42,7 @@ func (collector *ProcCollector) Collect(ch chan<- prometheus.Metric) {
 			proc.ppid,
 			proc.command,
 			proc.user,
-			proc.start,
+			// proc.start,
 		)
 		ch <- prometheus.MustNewConstMetric(
 			collector.cpuPMetric,
@@ -52,7 +52,7 @@ func (collector *ProcCollector) Collect(ch chan<- prometheus.Metric) {
 			proc.ppid,
 			proc.command,
 			proc.user,
-			proc.start,
+			// proc.start,
 		)
 		ch <- prometheus.MustNewConstMetric(
 			collector.memPMetric,
@@ -62,7 +62,7 @@ func (collector *ProcCollector) Collect(ch chan<- prometheus.Metric) {
 			proc.ppid,
 			proc.command,
 			proc.user,
-			proc.start,
+			// proc.start,
 		)
 	}
 }

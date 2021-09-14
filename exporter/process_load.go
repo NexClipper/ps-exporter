@@ -16,13 +16,13 @@ type ProcInfo struct {
 	cpu     float64
 	command string
 	user    string
-	start   string
+	// start   string
 }
 
 // GetProcessStats returns current process information
 func GetProcessStats() []*ProcInfo {
 	// out, err := exec.Command("sh", "-c", "ps -eo pid,ppid,%mem,%cpu,cpu,comm,user,lstart").CombinedOutput()
-	out, err := exec.Command("sh", "-c", "ps -eo pid,ppid,pmem,pcpu,cpu,user,etime,command").CombinedOutput()
+	out, err := exec.Command("sh", "-c", "ps -eo pid,ppid,pmem,pcpu,cpu,user,command").CombinedOutput()
 	if err != nil {
 		log.Fatal("CMD Error: ", err)
 	}
@@ -47,9 +47,9 @@ func parseDataPointFromRow(headerLength int, row string) *ProcInfo {
 		memP:    memP,
 		cpuP:    cpuP,
 		cpu:     cpu,
-		command: fields[7],
+		command: fields[6],
 		user:    fields[5],
-		start:   fields[6],
+		// start:   fields[6],
 	}
 }
 

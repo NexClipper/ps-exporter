@@ -25,8 +25,30 @@ Start the exporter using: `./ps-exporter --port 9095 --host localhost`
 ### Docker
 ```
 docker run -d \
-  --net="host" \
+  -p 9095:9095 \
   --pid="host" \
   -v "/proc:/host/proc:ro,rslave" \
   nexclipper/ps-exporter:latest
+```
+
+### Docker-Compose
+
+```
+version: '3.8'
+
+services:
+  ps-exporter:
+    image: nexclipper/ps-exporter:latest
+    container_name: ps-exporter
+    restart: unless-stopped
+    pid: host
+    volumes:
+      - type: bind
+        source: /proc
+        target: /host/proc
+        read_only: true
+          bind:
+            propagation: rslave
+    ports: 
+      - 9095:9095
 ```
